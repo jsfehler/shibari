@@ -4,11 +4,16 @@ import functools
 class Rig:
     def __init__(self, *names):
         self.rigs = {}
-        
+
         for n in names:
             self.rigs[n] = {}
 
-    def free(self, name):
+    def free(self, name: str):
+        """Free all functions in a scope.
+
+        Arguments:
+            name: The scope to free.
+        """
         def decorator(function):
             @functools.wraps(function)
             def wrapper(instance, **kwargs):
@@ -22,25 +27,31 @@ class Rig:
             return wrapper
         return decorator
 
+    def bind(self, scope: str):
+        """Bind a function to a named scope.
 
-    def bind(self, rig):
-        if not self.rigs.get(rig):
-            self.rigs[rig] = {}
+        Arguments:
+            scope: The name to which the wrapped function is bound.
+        """
+        if not self.rigs.get(scope):
+            self.rigs[scope] = {}
 
-        def decorator(function):    
+        def decorator(function):
             @functools.wraps(function)
             def wrapper(instance=None, *args, **kwargs):
-                rig_ref = self.rigs[rig]
-                
-                r = rig_ref.get(function.__name__)
+                scoped_funcs = self.rigs[scope]
+                func_name = function.__name__
 
-                if not r:
+                bound_func = scoped_funcs.get(func_name)
+                if not bound_func:
                     if instance:
-                        rig_ref[function.__name__] = function(instance, *args, **kwargs)
+                        scoped_funcs[func_name] = function(
+                            instance, *args, **kwargs,
+                        )
                     else:
-                        rig_ref[function.__name__] = function(*args, **kwargs)
+                        scoped_funcs[func_name] = function(*args, **kwargs)
 
-                return rig_ref[function.__name__]
+                return scoped_funcs[func_name]
 
             return wrapper
         return decorator
