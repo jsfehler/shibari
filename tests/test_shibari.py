@@ -23,6 +23,11 @@ def finish():
     pass
 
 
+@rig.free('ebi')
+def finish_fail():
+    raise ValueError('ded')
+
+
 class BoundClass:
     method_rig = shibari.Rig('ebi', 'hishi')
 
@@ -152,3 +157,20 @@ def test_free_method(request, bound_class):
         bound_class.finish()
 
     request.addfinalizer(fin)
+
+
+def test_free_on_fail():
+    """
+    Given I have a bound method
+    With I call a function that frees the bind
+    And I call the bound method for a second time
+    Then the results are not identical
+    """
+    result = timestamp()
+
+    with pytest.raises(ValueError):
+        finish_fail()
+
+    time.sleep(0.1)
+
+    assert result != timestamp()
