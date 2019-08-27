@@ -8,25 +8,6 @@ class Rig:
         for n in names:
             self.rigs[n] = {}
 
-    def free(self, name: str):
-        """Free all functions in a scope.
-
-        Arguments:
-            name: The scope to free.
-        """
-        def decorator(function):
-            @functools.wraps(function)
-            def wrapper(instance, **kwargs):
-                try:
-                    function()
-                    self.rigs[name] = {}
-                except Exception as e:
-                    self.rigs[name] = {}
-                    raise e
-
-            return wrapper
-        return decorator
-
     def bind(self, scope: str):
         """Bind a function to a named scope.
 
@@ -52,6 +33,28 @@ class Rig:
                         scoped_funcs[func_name] = function(*args, **kwargs)
 
                 return scoped_funcs[func_name]
+
+            return wrapper
+        return decorator
+
+    def free(self, name: str):
+        """Free all functions in a scope.
+
+        Arguments:
+            name: The scope to free.
+        """
+        def decorator(function):
+            @functools.wraps(function)
+            def wrapper(instance=None, *args, **kwargs):
+                try:
+                    if instance:
+                        function(instance, *args, **kwargs)
+                    else:
+                        function(*args, **kwargs)
+                    self.rigs[name] = {}
+                except Exception as e:
+                    self.rigs[name] = {}
+                    raise e
 
             return wrapper
         return decorator
