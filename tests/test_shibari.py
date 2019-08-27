@@ -161,10 +161,9 @@ def test_free_method(request, bound_class):
 
 def test_free_on_fail():
     """
-    Given I have a bound method
-    With I call a function that frees the bind
-    And I call the bound method for a second time
-    Then the results are not identical
+    Given I have a bound function
+    With I call a function that frees the bind but raises an Exception
+    Then the bound functions are still freed
     """
     result = timestamp()
 
