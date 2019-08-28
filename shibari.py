@@ -2,6 +2,18 @@ import functools
 
 
 class Rig:
+    """A store of functions inside nested dicts.
+
+    Each dict acts as a scope. Functions inside a scope will only run once
+    until that scope is cleared.
+
+    Takes an arbitrary number of arguments as the list of scopes to create.
+
+    Attributes:
+        rigs (dict): A nested dict which stores bound functions in a scope.
+
+    """
+
     def __init__(self, *names):
         self.rigs = {}
 
