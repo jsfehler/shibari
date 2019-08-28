@@ -5,6 +5,9 @@ shibari
     :alt: GitHub
     :target: https://github.com/jsfehler/shibari/blob/master/LICENSE
 
+.. image:: https://travis-ci.org/jsfehler/stere.svg?branch=master
+    :target: https://travis-ci.org/jsfehler/stere
+
 Bind functions to only run once inside a desired scope.
 
 Documentation
