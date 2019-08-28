@@ -1,6 +1,14 @@
 shibari
 =======
 
+.. image:: https://img.shields.io/pypi/v/shibari.svg
+    :target: https://pypi.org/project/shibari
+    :alt: PyPI
+
+.. image:: https://img.shields.io/pypi/pyversions/shibari.svg
+    :alt: PyPI - Python Version
+    :target: https://github.com/jsfehler/shibari
+
 .. image:: https://img.shields.io/github/license/jsfehler/shibari.svg
     :alt: GitHub
     :target: https://github.com/jsfehler/shibari/blob/master/LICENSE
