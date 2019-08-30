@@ -1,6 +1,6 @@
 import os
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 
 def read(filename):
@@ -18,7 +18,7 @@ setup(
     author_email="jsfehler@gmail.com",
     license="MIT",
     url="https://github.com/jsfehler/shibari",
-    packages=find_packages(),
+    py_modules=['shibari'],
     classifiers=(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
