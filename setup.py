@@ -11,7 +11,7 @@ def read(filename):
 
 setup(
     name="shibari",
-    version="0.0.1",
+    version="0.0.2",
     description="Bind functions to run only once inside a desired scope.",
     long_description=read('README.rst'),
     author="Joshua Fehler",
