@@ -20,7 +20,7 @@ class Rig:
         for n in names:
             self.rigs[n] = {}
 
-    def bind(self, scope: str):
+    def bind(self, scope: str, name=None):
         """Bind a function to a named scope.
 
         Arguments:
@@ -33,7 +33,7 @@ class Rig:
             @functools.wraps(function)
             def wrapper(instance=None, *args, **kwargs):
                 scoped_funcs = self.rigs[scope]
-                func_name = function.__name__
+                func_name = name or function.__name__
 
                 bound_func = scoped_funcs.get(func_name)
                 if not bound_func:
