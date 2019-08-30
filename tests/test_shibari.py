@@ -20,7 +20,7 @@ def timestamp_with_args(a, b):
 
 @rig.free('ebi')
 def finish():
-    pass
+    return "Finish"
 
 
 @rig.free('ebi')
@@ -41,7 +41,7 @@ class BoundClass:
 
     @method_rig.free('ebi')
     def finish(self):
-        pass
+        return "Finish"
 
 
 @pytest.fixture
@@ -173,3 +173,25 @@ def test_free_on_fail():
     time.sleep(0.1)
 
     assert result != timestamp()
+
+
+def test_free_return_value():
+    """
+    Given I have a bound function
+    With I call a function that frees the bind
+    Then the return value of the function is returned
+    """
+    r = finish()
+
+    assert "Finish" == r
+
+
+def test_free_method_return_value(bound_class):
+    """
+    Given I have a bound method
+    With I call a function that frees the bind
+    Then the return value of the method is returned
+    """
+    r = bound_class.finish()
+
+    assert r == "Finish"

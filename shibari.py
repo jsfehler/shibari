@@ -60,13 +60,12 @@ class Rig:
             def wrapper(instance=None, *args, **kwargs):
                 try:
                     if instance:
-                        function(instance, *args, **kwargs)
+                        f = function(instance, *args, **kwargs)
                     else:
-                        function(*args, **kwargs)
+                        f = function(*args, **kwargs)
+                    return f
+                finally:
                     self.rigs[name] = {}
-                except Exception as e:
-                    self.rigs[name] = {}
-                    raise e
 
             return wrapper
         return decorator
